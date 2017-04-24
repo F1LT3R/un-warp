@@ -1,0 +1,41 @@
+{
+  "name": "un-warp",
+  "private": true,
+  "version": "1.0.0",
+  "description": "JavaScript demo of how to un-warp a flat image photographed at an angle.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -o "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/f1lt3r/unwarp.git"
+  },
+  "keywords": [
+    "image",
+    "flatten",
+    "photo",
+    "distort",
+    "unwarp",
+    "warp"
+  ],
+  "author": "f1lt3r",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/f1lt3r/unwarp/issues"
+  },
+  "homepage": "https://github.com/f1lt3r/unwarp#readme",
+  "xo": {
+    "esnext": true,
+    "semicolon": false,
+    "globals": [
+      "document"
+    ],
+    "rules": {
+    }
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "xo": "^0.18.1"
+  }
+}
