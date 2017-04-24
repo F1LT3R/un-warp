@@ -29,7 +29,9 @@
     "esnext": true,
     "semicolon": false,
     "globals": [
-      "document"
+      "output",
+      "input",
+      "Image"
     ],
     "rules": {
     }

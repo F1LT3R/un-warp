@@ -2,14 +2,10 @@
  * @author Alistair MacDonald (F1LT3R) <al@pwn.io>
  */
 
-// Settings
-
 const cardImagePath = 'charlie-card.jpg'
 const cardWidth = 400
 const cardRatio = 0.630563798
 const cardHeight = parseInt(cardWidth * cardRatio, 10)
-
-////////////////////////////////////////////////////////////////
 
 const controlPointSize = 20
 const controlPointFill = 'rgba(255, 0, 255, 0.5)'
@@ -21,34 +17,30 @@ const dist = (x1, y1, x2, y2) => {
 	return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 }
 
-const input = document.getElementById('input')
 input.width = cardWidth
 input.height = cardHeight
 const ctx = input.getContext('2d')
 
-const output = document.getElementById('output')
 output.width = cardWidth
 output.height = cardHeight
 const ctx2 = output.getContext('2d')
 
-let imageLoaded = false
-let imageData
-
 const img = new Image()
 img.onload = function () {
-	imageLoaded = true
 	ctx.drawImage(img, 0, 0, cardWidth, cardHeight)
-	imageData = ctx.getImageData(0, 0, cardWidth, cardHeight)
 }
 img.src = cardImagePath
 
-
 let controlPointGrabbed = false
 let controlPointMoved = false
-let x1 = 50, y1 = 50
-let x2 = input.width - 50, y2 = 50
-let x3 = input.width - 50, y3 = input.height - 50
-let x4 = 50, y4 = input.height - 50
+let x1 = 50
+let y1 = 50
+let x2 = input.width - 50
+let y2 = 50
+let x3 = input.width - 50
+let y3 = input.height - 50
+let x4 = 50
+let y4 = input.height - 50
 
 input.addEventListener('mousemove', event => {
 	const mouseX = event.x - input.getBoundingClientRect().left
@@ -138,8 +130,8 @@ const drawControlPoint = (x, y, grabbed) => {
 }
 
 function getPixelRGB(x, y) {
-    const pixel = ctx.getImageData(x, y, 1, 1).data
-    return [pixel[0], pixel[1], pixel[2]]
+	const pixel = ctx.getImageData(x, y, 1, 1).data
+	return [pixel[0], pixel[1], pixel[2]]
 }
 
 const vectXY = (vx2, vx1, vy2, vy1, pos, max) => {
@@ -209,5 +201,4 @@ const draw = () => {
 draw()
 
 setInterval(draw, 60)
-
 
