@@ -1,9 +1,5 @@
-/**
- * @author Alistair MacDonald (F1LT3R) <al@pwn.io>
- */
-
 const cardImagePath = 'charlie-card.jpg'
-const cardWidth = 400
+const cardWidth = 318
 const cardRatio = 0.630563798
 const cardHeight = parseInt(cardWidth * cardRatio, 10)
 
@@ -71,6 +67,43 @@ input.addEventListener('mousemove', event => {
 	}
 })
 
+input.addEventListener('touchmove', event => {
+	if (!event.targetTouches.length === 1) {
+		return
+	}
+
+	const touch = event.targetTouches[0]
+
+	const mouseX = touch.pageX - input.getBoundingClientRect().left
+	const mouseY = touch.pageY - input.getBoundingClientRect().top
+
+	if (controlPointGrabbed === 1) {
+		x1 = mouseX
+		y1 = mouseY
+		controlPointMoved = true
+	}
+
+	if (controlPointGrabbed === 2) {
+		x2 = mouseX
+		y2 = mouseY
+		controlPointMoved = true
+	}
+
+	if (controlPointGrabbed === 3) {
+		x3 = mouseX
+		y3 = mouseY
+		controlPointMoved = true
+	}
+
+	if (controlPointGrabbed === 4) {
+		x4 = mouseX
+		y4 = mouseY
+		controlPointMoved = true
+	}
+
+	event.preventDefault()
+})
+
 input.addEventListener('mousedown', event => {
 	const mouseX = event.x - input.getBoundingClientRect().left
 	const mouseY = event.y - input.getBoundingClientRect().top
@@ -98,6 +131,42 @@ input.addEventListener('mousedown', event => {
 	}
 
 	controlPointGrabbed = false
+})
+
+input.addEventListener('touchstart', event => {
+	if (!event.targetTouches.length === 1) {
+		return
+	}
+
+	const touch = event.targetTouches[0]
+
+	const mouseX = touch.pageX - input.getBoundingClientRect().left
+	const mouseY = touch.pageY - input.getBoundingClientRect().top
+
+	controlPointMoved = false
+
+	if (dist(mouseX, mouseY, x1, y1) <= controlPointSize) {
+		controlPointGrabbed = 1
+		return
+	}
+
+	if (dist(mouseX, mouseY, x2, y2) <= controlPointSize) {
+		controlPointGrabbed = 2
+		return
+	}
+
+	if (dist(mouseX, mouseY, x3, y3) <= controlPointSize) {
+		controlPointGrabbed = 3
+		return
+	}
+
+	if (dist(mouseX, mouseY, x4, y4) <= controlPointSize) {
+		controlPointGrabbed = 4
+		return
+	}
+
+	controlPointGrabbed = false
+	event.preventDefault()
 })
 
 const drawControlPoint = (x, y, grabbed) => {
@@ -172,12 +241,24 @@ const flatten = () => {
 	ctx2.putImageData(outputImgData, 0, 0)
 }
 
-input.addEventListener('mouseup', () => {
+input.addEventListener('mouseup', event => {
 	controlPointGrabbed = 0
 
 	if (controlPointMoved) {
 		flatten()
 	}
+
+	event.preventDefault()
+})
+
+input.addEventListener('touchend', event => {
+	controlPointGrabbed = 0
+
+	if (controlPointMoved) {
+		flatten()
+	}
+
+	event.preventDefault()
 })
 
 const draw = () => {
